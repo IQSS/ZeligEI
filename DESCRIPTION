@@ -5,21 +5,22 @@ Title: Zelig Ecological Inference Models
 Author: James Honaker
 Description: Add-on package for Zelig 5. Enables the use of a variety of
     ecological inference models.
-Version: 0.1-1
-Date: 2016-11-04
+Version: 0.1-2
+Date: 2017-04-21
 Depends:
     eiPack
 Imports:
-    methods,
-    Zelig (>= 5.0-11),
-    MASS,
-    jsonlite,
     dplyr,
     ei,
-    MCMCpack
+    Formula,
+    jsonlite,
+    MASS,
+    MCMCpack,
+    methods,
+    Zelig (>= 5.1-0),
 Suggests:
-    testthat,
-    knitr
+    knitr,
+    testthat
 Collate:
     'create-json.R'
     'model-ei.R'

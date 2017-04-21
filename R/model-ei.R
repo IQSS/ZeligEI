@@ -34,7 +34,7 @@ zei$methods(
 zei$methods(
   param = function(z.out, method="mvn") {
     if(identical(method,"mvn")){
-      return(mvrnorm(.self$num, coef(z.out), vcov(z.out))) 
+      return(mvrnorm(.self$num, coef(z.out), vcov(z.out)))
     } else if(identical(method,"point")){
       return(t(as.matrix(coef(z.out))))
     } else {
@@ -55,7 +55,7 @@ checkZeligEIna.action = function(na.action){
     na.action<-"na.fail"
   }
 
-  if(na.action !%in% c("na.omit","na.fail")){
+  if(!(na.action %in% c("na.omit","na.fail"))){
     stop("Error: Zelig's na.action argument should be a text string of 'na.omit' or 'na.fail' ")
   }
   return(na.action)
@@ -122,7 +122,7 @@ convertEIformula2 = function(formula, data, N, na.action){
 
 convertEIformula = function(formula, N, data, na.action){
   formula <- as.formula(formula)
-  
+
   if(!is.null(N)){
     if(is.character(N)){
       Nvalid <- N %in% names(data)
@@ -207,7 +207,7 @@ convertEIformula = function(formula, N, data, na.action){
 
   flag.missing <- is.na(r0) | is.na(r1) | is.na(c0) | is.na(c1) | is.na(Nvalues)
   if(any(flag.missing)){
-    if (na.action=="na.omit"){ 
+    if (na.action=="na.omit"){
       warnings("There are observations in the EI model with missing values.  These observations have been removed.")
       r0<-r0[!flag.missing]
       r1<-r1[!flag.missing]
@@ -215,7 +215,7 @@ convertEIformula = function(formula, N, data, na.action){
       c1<-c1[!flag.missing]
       Nvalues<-Nvalues[!flag.missing]
     } else {
-      stop("Error: There are observations in the EI model with zero as the total count for the observation. \nRemove these observations from data, or change Zelig's 'na.action' argument.")   
+      stop("Error: There are observations in the EI model with zero as the total count for the observation. \nRemove these observations from data, or change Zelig's 'na.action' argument.")
     }
   }
 
@@ -227,7 +227,7 @@ zei$methods(
   getcoef = function() {
     "Get estimated model coefficients"
     return(.self$zelig.out$z.out)
-  } 
+  }
 )
 
 # This works for eihier, eidynamic and eirxc (with overwritten $getcoef method).  Model eiml is not MCMC.
@@ -255,11 +255,11 @@ zei$methods(
             year = 1992,
             publisher = "Clarendon Press",
             address = "Oxford, UK",
-            editor = c(person("JM", "Bernado"), person("JO", "Berger"), person("AP", "Dawid"), person("AFM", "Smith")) 
+            editor = c(person("JM", "Bernado"), person("JO", "Berger"), person("AP", "Dawid"), person("AFM", "Smith"))
             )
     .self$refs<-c(.self$refs,ref1)
     return(diag)
-  } 
+  }
 )
 
 zei$methods(
@@ -288,7 +288,7 @@ zei$methods(
             pages = "1109--44")
     .self$refs<-c(.self$refs,ref1)
     return(diag)
-  } 
+  }
 )
 
 zei$methods(
@@ -325,10 +325,10 @@ zei$methods(
             year = 1995,
             publisher = "Chapman and Hall",
             address = "London, UK",
-            editor = c(person("WR", "Gilks"), person("DJ", "Spiegelhalter"), person("S", "Richardson")) 
+            editor = c(person("WR", "Gilks"), person("DJ", "Spiegelhalter"), person("S", "Richardson"))
             )
     .self$refs<-c(.self$refs,ref1,ref2)
     return(diag)
-  } 
+  }
 )
 

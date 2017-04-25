@@ -2,12 +2,11 @@
 % Please edit documentation in R/model-ei.R
 \name{convertEIformula}
 \alias{convertEIformula}
-\title{Conversion utility to allow different possible formula notations for EI models}
+\title{Conversion utility to allow different possible formula notations, and deal with zeroes and missing values, for EI models in eiheir, eidynamic}
 \usage{
-convertEIformula(formula, N, data)
+convertEIformula(formula, N, data, na.action)
 }
 \description{
-Conversion utility to allow different possible formula notations for EI models
+Conversion utility to allow different possible formula notations, and deal with zeroes and missing values, for EI models in eiheir, eidynamic
 }
 \keyword{internal}
-

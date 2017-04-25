@@ -11,7 +11,9 @@ Ecological Inference object for inheritance across models in ZeligEI
 \section{Methods}{
 
 \describe{
+\item{\code{getcoef()}}{Get estimated model coefficients}
+
 \item{\code{zelig(formula, data, model = NULL, ..., weights = NULL, by,
-  bootstrap = FALSE)}}{The zelig command estimates a variety of statistical models}
+  bootstrap = FALSE)}}{The zelig function estimates a variety of statistical models}
 }}
 

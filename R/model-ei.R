@@ -51,7 +51,7 @@ checkZeligEIna.action = function(na.action){
   if(identical(na.action,stats::na.omit)){
     na.action<-"na.omit"
   }
-  if(identical(na.action,na.fail)){
+  if(identical(na.action,stats::na.fail)){
     na.action<-"na.fail"
   }
 
@@ -85,7 +85,7 @@ convertEIformula2 = function(formula, data, N, na.action){
         totalName <- as.character(N)
       }
     }else if(is.numeric(N)){
-      Nvalid <- length(N) == nrow(data)    # Also check ZeligN >= all rows/columns
+      Nvalid <- length(N) == nrow(data)    
       if(Nvalid){
         newdata$ZeligN <- N
         Nvalues <- N
@@ -94,20 +94,22 @@ convertEIformula2 = function(formula, data, N, na.action){
         stop("The argument N needs to match in length the number of observations in the dataset.")
       }
     }
+
   }else{
     if((rterms==1) | (cterms==1)){
       stop("The argument 'N' has not been specified, however the formula does not define all terms.  Either set the 'N' argument, or redefine formula using 'cbind' notation, or both.")
     }
-
-    Nvalid <- all(rtotal == ctotal)
-    if(Nvalid){
-      newdata$ZeligN <- rtotal
-      totalName <- "ZeligN"
-      #.self$model.call$total <- "ZeligN"
-    } else {
+    if(! all(rtotal == ctotal)){
       stop("Some of the row observations do not sum to the same total as the column observations.  Please correct the data or the formula, or set the N argument.")
+    } 
+    if (all (rtotal==1)){
+      stop("Row and column observations appear to be fractions, but no N argument has been set.  Please correct the data or the formula, or set the N argument.")
     }
+    Nvalues <- rtotal
+    newdata$ZeligN <- rtotal
+    totalName <- "ZeligN"    
   }
+
 
   ## Examine and check appropriateness of formula 
 
@@ -120,23 +122,32 @@ convertEIformula2 = function(formula, data, N, na.action){
   
   ## Deal with tables with zero counts and missing values
 
-  flag.zero <- Nvalues<1
-  if(any(flag.zero)){
-    warnings("There are observations in the EI model with zero as the total count for the observation.  Check data.  These observations have been removed.")
-    Nvalues<-Nvalues[!flag.zero]
-    newdata <- newdata[!flag.zero]
-  }
-
   flag.missing <- is.na(rtotal) | is.na(ctotal) | is.na(Nvalues)   
   if(any(flag.missing)){
     if (na.action=="na.omit"){ 
       warnings("There are observations in the EI model with missing values.  These observations have been removed.")
       Nvalues<-Nvalues[!flag.missing]
       newdata <- newdata[!flag.missing]
+      rtotal <- rtotal[!flag.missing]
+      ctotal <- ctotal[!flag.missing]
     } else {
       stop("Error: There are observations in the EI model with zero as the total count for the observation. \nRemove these observations from data, or change Zelig's 'na.action' argument.")   
     }
   }
+
+  flag.zero <- Nvalues<1
+  if(any(flag.zero)){
+    warnings("There are observations in the EI model with zero as the total count for the observation.  Check data.  These observations have been removed.")
+    Nvalues<-Nvalues[!flag.zero]
+    newdata <- newdata[!flag.zero]
+    rtotal <- rtotal[!flag.zero]
+    ctotal <- ctotal[!flag.zero]
+  }
+
+  if(any(Nvalues < rtotal) | any(Nvalues < ctotal)){
+    stop("The N argument provided for table totals is lower than some row or column counts.  Please examine the data and correct.")
+  }
+
 
   return(list(formula=newformula, data=newdata, N=Nvalues, totalName=totalName))
 }

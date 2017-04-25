@@ -67,6 +67,9 @@ checkZeligEIna.action = function(na.action){
 convertEIformula2 = function(formula, data, N, na.action){
 
   newdata <- data
+  newformula <- formula
+  rterms <- length(formula[[2]])
+  cterms <- length(formula[[3]])
   rdata <- data[ as.character(formula[[2]][2:rterms] ) ]
   rtotal <- apply(rdata,1,sum)
   cdata <- data[ as.character(formula[[3]][2:cterms] ) ]
@@ -92,8 +95,6 @@ convertEIformula2 = function(formula, data, N, na.action){
       }
     }
   }else{
-    rterms <- length(formula[[2]])
-    cterms <- length(formula[[3]])
     if((rterms==1) | (cterms==1)){
       stop("The argument 'N' has not been specified, however the formula does not define all terms.  Either set the 'N' argument, or redefine formula using 'cbind' notation, or both.")
     }
@@ -191,8 +192,12 @@ convertEIformula = function(formula, N, data, na.action){
     check <- check & (length(formula[[3]]) == 1) & Nvalid   # Need same length covariate list, and must have useable N argument
     if(check){
       r0 <- data[[ as.character(formula[[2]]) ]]
-      r1 <- Nvalues - r0
       c0 <- data[[ as.character(formula[[3]]) ]]
+      if( !identical(floor(r0),r0) ){ 
+        r0 <- round(r0 * Nvalues)
+        c0 <- round(c0 * Nvalues)
+      }
+      r1 <- Nvalues - r0
       c1 <- Nvalues - c0
     }
 
@@ -205,14 +210,13 @@ convertEIformula = function(formula, N, data, na.action){
       c0 <- data[[ as.character(formula[[3]][2]) ]]
       c1 <- data[[ as.character(formula[[3]][3]) ]]
     }
-    if( !identical(floor(r0),r0) ){   # Make a better check here.  Deal with case of fraction and 0-100.
+    if( !identical(floor(r0),r0) ){   # Make a better check here.  Deal with case of 0-100 instead of fraction.  Check if fractions sum to 1.
       check <- check & Nvalid                               # If variables expressed as proportions, must have useable N argument
-
       if(check){
         r0 <- round(r0 * Nvalues)
-        r1 <- round(r1 * Nvalues)
+        r1 <- Nvalues - r0
         c0 <- round(c0 * Nvalues)
-        c1 <- round(c1 * Nvalues)
+        c1 <- Nvalues - c0
       }
     }
   } else {

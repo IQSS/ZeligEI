@@ -55,7 +55,7 @@ checkZeligEIna.action = function(na.action){
     na.action<-"na.fail"
   }
 
-  if(na.action !%in% c("na.omit","na.fail")){
+  if(!na.action %in% c("na.omit","na.fail")){
     stop("Error: Zelig's na.action argument should be a text string of 'na.omit' or 'na.fail' ")
   }
   return(na.action)
@@ -66,18 +66,27 @@ checkZeligEIna.action = function(na.action){
 
 convertEIformula2 = function(formula, data, N, na.action){
 
+  newdata <- data
+  rdata <- data[ as.character(formula[[2]][2:rterms] ) ]
+  rtotal <- apply(rdata,1,sum)
+  cdata <- data[ as.character(formula[[3]][2:cterms] ) ]
+  ctotal <- apply(cdata,1,sum)
+
+  ## Determine whether N is valid, and format appropriately
+
   if(!is.null(N)){
     if(is.character(N)){
       Nvalid <- N %in% names(data)
       if(Nvalid){
         Nvalues <- data[[ as.character(N) ]]
-        .self$model.call$total <- N
+        totalName <- as.character(N)
       }
     }else if(is.numeric(N)){
-      Nvalid <- length(N) == nrow(data)
+      Nvalid <- length(N) == nrow(data)    # Also check ZeligN >= all rows/columns
       if(Nvalid){
-        data$ZeligN <- N
-        .self$model.call$total <- "ZeligN"
+        newdata$ZeligN <- N
+        Nvalues <- N
+        totalName <- "ZeligN"
       } else {
         stop("The argument N needs to match in length the number of observations in the dataset.")
       }
@@ -89,32 +98,46 @@ convertEIformula2 = function(formula, data, N, na.action){
       stop("The argument 'N' has not been specified, however the formula does not define all terms.  Either set the 'N' argument, or redefine formula using 'cbind' notation, or both.")
     }
 
-    rdata <- data[ as.character(formula[[2]][2:rterms] ) ]
-    rtotal <- apply(rdata,1,sum)
-    cdata <- data[ as.character(formula[[3]][2:cterms] ) ]
-    ctotal <- apply(cdata,1,sum)
-
     Nvalid <- all(rtotal == ctotal)
     if(Nvalid){
-      data$ZeligN <- rtotal
-      .self$model.call$total <- "ZeligN"
+      newdata$ZeligN <- rtotal
+      totalName <- "ZeligN"
+      #.self$model.call$total <- "ZeligN"
     } else {
       stop("Some of the row observations do not sum to the same total as the column observations.  Please correct the data or the formula, or set the N argument.")
     }
   }
 
-  flag.zero <- Nvalues<1
-
-  if(any(flag.zero)){
-    warnings("There are observations in the EI model with zero as the total count for the observation.  Check data.  These observations have been removed.")
-    data <- data[!flag.zero]
-  }
-
-
+  ## Examine and check appropriateness of formula 
 
   check <- formula[[1]]=="~"
+  ## Need more checks on formula structure for these models
 
-  return(list(formula=newformula, data=newdata, N=newN))
+  if(!check){
+    stop("Formula and/or N argument provided for EI model does not appear to match any of the accepted templates.")
+  }
+  
+  ## Deal with tables with zero counts and missing values
+
+  flag.zero <- Nvalues<1
+  if(any(flag.zero)){
+    warnings("There are observations in the EI model with zero as the total count for the observation.  Check data.  These observations have been removed.")
+    Nvalues<-Nvalues[!flag.zero]
+    newdata <- newdata[!flag.zero]
+  }
+
+  flag.missing <- is.na(rtotal) | is.na(ctotal) | is.na(Nvalues)   
+  if(any(flag.missing)){
+    if (na.action=="na.omit"){ 
+      warnings("There are observations in the EI model with missing values.  These observations have been removed.")
+      Nvalues<-Nvalues[!flag.missing]
+      newdata <- newdata[!flag.missing]
+    } else {
+      stop("Error: There are observations in the EI model with zero as the total count for the observation. \nRemove these observations from data, or change Zelig's 'na.action' argument.")   
+    }
+  }
+
+  return(list(formula=newformula, data=newdata, N=Nvalues, totalName=totalName))
 }
 
 #' Conversion utility to allow different possible formula notations, and deal with zeroes and missing values, for EI models in eiheir, eidynamic
@@ -122,12 +145,16 @@ convertEIformula2 = function(formula, data, N, na.action){
 
 convertEIformula = function(formula, N, data, na.action){
   formula <- as.formula(formula)
+
+  ## Determine whether N is valid, and format appropriately
   
   if(!is.null(N)){
     if(is.character(N)){
       Nvalid <- N %in% names(data)
       if(Nvalid){
         Nvalues <- data[[ as.character(N) ]]
+      } else {
+        stop("The argument 'N' appears to be intended to be a variable name, but does not match any name in the dataset ")
       }
     }else if(is.numeric(N)){
       Nvalid <- length(N) == nrow(data)
@@ -151,12 +178,13 @@ convertEIformula = function(formula, N, data, na.action){
 
     Nvalid <- all(rtotal == ctotal)
     if(Nvalid){
-      data$ZeligN <- rtotal
-      .self$model.call$total <- "ZeligN"
+      Nvalues <- rtotal
     } else {
       stop("Some of the row observations do not sum to the same total as the column observations.  Please correct the data or the formula, or set the 'N' argument.")
     }
   }
+
+  ## Examine and check appropriateness of formula 
 
   check <- formula[[1]]=="~"
   if(length(formula[[2]]) == 1){
@@ -194,6 +222,8 @@ convertEIformula = function(formula, N, data, na.action){
   if(!check){
     stop("Formula and/or N argument provided for EI model does not appear to match any of the accepted templates.")
   }
+
+  ## Deal with tables with zero counts and missing values
 
   flag.zero <- Nvalues<1
   if(any(flag.zero)){

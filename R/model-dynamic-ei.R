@@ -47,6 +47,8 @@ zeidynamic$methods(
         Check if you intended to use the W argument to adjust the temporal dependence among elements in the Quinn model.")
     }
     cnvt <- convertEIformula(formula=formula, N=N, data=data, na.action=na.action)
+    localformula <- cnvt$formula
+    localdata <- cnvt$data
 
     .self$zelig.call <- match.call(expand.dots = TRUE)
     .self$model.call <- match.call(expand.dots = TRUE)
@@ -61,7 +63,7 @@ zeidynamic$methods(
     .self$model.call$data <- NULL
     .self$model.call$na.action <- NULL
 
-    callSuper(formula = formula, data = data, ..., weights = NULL, by = by, bootstrap = FALSE)
+    callSuper(formula = localformula, data = localdata, ..., weights = NULL, by = by, bootstrap = FALSE)
   }
 )
 

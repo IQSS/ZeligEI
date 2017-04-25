@@ -43,9 +43,6 @@ zeirxc$methods(
     if(!identical(bootstrap,FALSE)){
       stop("Error: The bootstrap is not available for Markov chain Monte Carlo (MCMC) models.")
     }
-    #if(is.null(N)){
-    #  stop("The argument N needs to be set to the name of the variable giving the total for each unit, or a vector of counts.")
-    #}
     
     cnvt <- convertEIformula2(formula, data, N, na.action)
     localformula <- cnvt$formula
@@ -57,7 +54,6 @@ zeirxc$methods(
     .self$model.call$N <- NULL
     .self$model.call$na.action <- NULL
     .self$model.call$total <- cnvt$totalName
-
 
     callSuper(formula = localformula, data = localdata, N=NULL, ..., weights = weights, by = by, bootstrap = bootstrap)
   }

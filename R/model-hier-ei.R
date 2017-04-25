@@ -45,8 +45,8 @@ zeihier$methods(
     }
 
     cnvt <- convertEIformula(formula=formula, N=N, data=data, na.action=na.action)
-    localformula <- cnvt$formula
-    localdata <- cnvt$data
+    #localformula <- cnvt$formula
+    #localdata <- cnvt$data
 
     .self$zelig.call <- match.call(expand.dots = TRUE)
     .self$model.call <- match.call(expand.dots = TRUE)
@@ -61,7 +61,7 @@ zeihier$methods(
     .self$model.call$data <- NULL
     .self$model.call$na.action <- NULL
 
-    callSuper(formula = localformula, data = localdata, ..., weights = NULL, by = by, bootstrap = FALSE)
+    callSuper(formula = formula, data = data, ..., weights = NULL, by = by, bootstrap = FALSE)
   }
 )
 

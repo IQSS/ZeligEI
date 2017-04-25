@@ -1,21 +1,25 @@
 Package: ZeligEI
-Maintainer: James Honaker <zelig.zee@gmail.com>
-License: GPL (>=2)
+License: GPL (>=3)
 Title: Zelig Ecological Inference Models
-Author: James Honaker
+Authors@R: c(
+    person("Christopher", "Gandrud", email = "zelig.zee@gmail.com",
+    role = c("cre")),
+    person("James", "Honaker", role = "aut")
+    )
 Description: Add-on package for Zelig 5. Enables the use of a variety of
     ecological inference models.
 Version: 0.1-1
-Date: 2016-11-04
+Date: 2017-04-25
 Depends:
     eiPack
 Imports:
-    methods,
-    Zelig (>= 5.0-11),
-    MASS,
-    jsonlite,
     dplyr,
     ei,
+    Formula,
+    jsonlite,
+    methods,
+    MASS,
+    Zelig (>= 5.1-0),
     MCMCpack
 Suggests:
     testthat,

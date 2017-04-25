@@ -40,7 +40,7 @@ zeiml$methods(
     #  stop("The argument N needs to be set to the name of the variable giving the total for each unit, or a vector of counts.")
     #}
 
-    cnvt <- convertEIformula2(formula, data, N, na.action)
+    cnvt <- convertEIformula2(formula=formula, data=data, N=N, na.action=na.action)
     localformula <- cnvt$formula
     localdata <- cnvt$data
 

@@ -68,12 +68,24 @@ convertEIformula2 = function(formula, data, N, na.action){
 
   newdata <- data
   newformula <- formula
+
+  formula <- as.formula(formula)
   rterms <- length(formula[[2]])
   cterms <- length(formula[[3]])
-  rdata <- data[ as.character(formula[[2]][2:rterms] ) ]
-  rtotal <- apply(rdata,1,sum)
-  cdata <- data[ as.character(formula[[3]][2:cterms] ) ]
-  ctotal <- apply(cdata,1,sum)
+
+  if(rterms>1){
+    rdata <- data[ as.character(formula[[2]][2:rterms] ) ]
+    rtotal <- apply(rdata,1,sum)
+  }else{
+    rtotal <- data[ as.character(formula[[2]] ) ]    
+  }
+
+  if(cterms>1){
+    cdata <- data[ as.character(formula[[3]][2:cterms] ) ]
+    ctotal <- apply(cdata,1,sum)
+  }else{
+    ctotal <- data[ as.character(formula[[3]] ) ]
+  }
 
   ## Determine whether N is valid, and format appropriately
 
@@ -96,6 +108,7 @@ convertEIformula2 = function(formula, data, N, na.action){
     }
 
   }else{
+
     if((rterms==1) | (cterms==1)){
       stop("The argument 'N' has not been specified, however the formula does not define all terms.  Either set the 'N' argument, or redefine formula using 'cbind' notation, or both.")
     }
@@ -122,7 +135,7 @@ convertEIformula2 = function(formula, data, N, na.action){
   
   ## Deal with tables with zero counts and missing values
 
-  flag.missing <- is.na(rtotal) | is.na(ctotal) | is.na(Nvalues)   
+  flag.missing <- is.na(rtotal) | is.na(ctotal) | is.na(Nvalues)      ## CTOTAL / RTOTAL DONT ALWAYS EXIST
   if(any(flag.missing)){
     if (na.action=="na.omit"){ 
       warnings("There are observations in the EI model with missing values.  These observations have been removed.")

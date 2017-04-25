@@ -135,7 +135,7 @@ convertEIformula2 = function(formula, data, N, na.action){
   
   ## Deal with tables with zero counts and missing values
 
-  flag.missing <- is.na(rtotal) | is.na(ctotal) | is.na(Nvalues)      ## CTOTAL / RTOTAL DONT ALWAYS EXIST
+  flag.missing <- is.na(rtotal) | is.na(ctotal) | is.na(Nvalues)  
   if(any(flag.missing)){
     if (na.action=="na.omit"){ 
       warnings("There are observations in the EI model with missing values.  These observations have been removed.")

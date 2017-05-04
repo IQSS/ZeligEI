@@ -4,7 +4,7 @@
 \alias{convertEIformula2}
 \title{Conversion utility to allow different possible formula notations, and deal with zeroes and missing values, for EI models in eiml, eirxc}
 \usage{
-convertEIformula2(formula, data, N, na.action)
+convertEIformula2(formula, data, N, na.action, rxc = FALSE)
 }
 \description{
 Conversion utility to allow different possible formula notations, and deal with zeroes and missing values, for EI models in eiml, eirxc

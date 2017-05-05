@@ -21,7 +21,7 @@ Imports:
     jsonlite,
     methods,
     MASS,
-    Zelig (>= 5.0-17),
+    Zelig (>= 5.1-0),
     MCMCpack
 Suggests:
     testthat,

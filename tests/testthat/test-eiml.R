@@ -50,5 +50,8 @@ z3.out$zelig( cbind(y.frac,noty.frac)~cbind(x.frac,notx.frac), N="total", data=m
 expect_that(length(z3.out$getcoef()[[1]]), equals(25))
 expect_that(round(z3.out$getcoef()[[1]]$phi), equals(c(0,0,-2,-2,0,0,0)))
 
-
+z4.out <- zeiml$new()
+z4.out$zelig(y~x, N="total", data=mydata)
+expect_that(length(z4.out$getcoef()[[1]]), equals(25))
+expect_that(round(z4.out$getcoef()[[1]]$phi), equals(c(0,0,-2,-2,0,0,0)))
 

@@ -64,7 +64,7 @@ checkZeligEIna.action = function(na.action){
 #' Conversion utility to allow different possible formula notations, and deal with zeroes and missing values, for EI models in eiml, eirxc
 #' @keywords internal
 
-convertEIformula2 = function(formula, data, N, na.action){
+convertEIformula2 = function(formula, data, N, na.action, rxc=FALSE){
 
   newdata <- data
   newformula <- formula
@@ -128,6 +128,21 @@ convertEIformula2 = function(formula, data, N, na.action){
 
   check <- formula[[1]]=="~"
   ## Need more checks on formula structure for these models
+
+  if(!rxc){
+  	## Rewrite formula passed to model, if written in cbind fashion
+    if((rterms>1) | (cterms>1)){
+      newformula <- as.formula(paste(as.character(formula[[2]][2]) , "~" , as.character(formula[[3]][2])))
+    }
+    ## Rewrite values in dataset passed to model, if counts instead of fractions
+    if(any(rtotal > 1)){
+    	newdata[ as.character(newformula[[2]] ) ] <- newdata[ as.character(newformula[[2]] ) ]/Nvalues
+    }
+    if(any(ctotal > 1)){
+    	newdata[ as.character(newformula[[3]] ) ] <- newdata[ as.character(newformula[[3]] ) ]/Nvalues
+    }
+  }
+
 
   if(!check){
     stop("Formula and/or N argument provided for EI model does not appear to match any of the accepted templates.")

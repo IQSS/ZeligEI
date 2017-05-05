@@ -44,7 +44,7 @@ zeirxc$methods(
       stop("Error: The bootstrap is not available for Markov chain Monte Carlo (MCMC) models.")
     }
     
-    cnvt <- convertEIformula2(formula=formula, data=data, N=N, na.action=na.action)
+    cnvt <- convertEIformula2(formula=formula, data=data, N=N, na.action=na.action, rxc=TRUE)
     localformula <- cnvt$formula
     localdata <- cnvt$data
 

@@ -47,6 +47,7 @@ zeiml$methods(
     .self$zelig.call <- match.call(expand.dots = TRUE)
 
     .self$model.call <- match.call(expand.dots = TRUE)
+    .self$model.call$formula <- localformula
     .self$model.call$N <- NULL
     .self$model.call$na.action <- NULL
     .self$model.call$total <- cnvt$totalName

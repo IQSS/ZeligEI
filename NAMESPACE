@@ -1,4 +1,4 @@
-import(methods, Zelig, jsonlite, dplyr, eiPack, ei, MCMCpack)
+import(methods, Formula, Zelig, jsonlite, dplyr, eiPack, ei, MCMCpack)
 
 importFrom("MASS", "mvrnorm")
 

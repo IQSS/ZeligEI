@@ -4,3 +4,4 @@
 .gitignore
 images
 README.md
+^\.travis\.yml$

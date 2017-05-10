@@ -6,6 +6,6 @@
 \alias{zeiml}
 \title{Ecological Inference Model by Maximum Likelihood}
 \description{
-Vignette: \url{http://docs.zeligproject.org/en/latest/zeligei-eiml.html}
+Vignette: \url{http://docs.zeligproject.org/articles/zeligei_eiml.html}
 }
 

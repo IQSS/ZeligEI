@@ -1,6 +1,6 @@
 #' Multinomial Dirichlet model for Ecological Inference in RxC tables
 #'
-#' Vignette: \url{http://docs.zeligproject.org/en/latest/zeligei-eirxc.html}
+#' Vignette: \url{http://docs.zeligproject.org/articles/zeligei_eirxc.html}
 #' @import methods
 #' @export Zelig-eirxc
 #' @exportClass Zelig-eirxc
@@ -18,7 +18,7 @@ zeirxc$methods(
     .self$fn <- quote(eiPack::ei.MD.bayes)
     .self$packageauthors <- "Michael Kellerman, Olivia Lau"
     .self$wrapper <- "eirxc"
-    .self$vignette.url <- "http://docs.zeligproject.org/en/latest/zeligei-eirxc.html"
+    .self$vignette.url <- "http://docs.zeligproject.org/articles/zeligei_eirxc.html"
     ref1<-bibentry(
             bibtype="Article",
             title = "Bayesian and Frequentist Inference for Ecological Inference: The R x C case.",

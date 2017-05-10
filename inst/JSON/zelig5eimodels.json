@@ -9,7 +9,7 @@
       "explanatory": {
         "modelingType": ["continuous", "discrete", "nominal", "ordinal", "binary"]
       },
-      "vignette.url": ["http://docs.zeligproject.org/en/latest/zeligei-eirxc.html"],
+      "vignette.url": ["http://docs.zeligproject.org/articles/zeligei_eirxc.html"],
       "wrapper": ["eirxc"],
       "tree": ["Zelig-eirxc", "Zelig-ei"]
     },
@@ -22,7 +22,7 @@
       "explanatory": {
         "modelingType": ["continuous", "discrete", "nominal", "ordinal", "binary"]
       },
-      "vignette.url": ["http://docs.zeligproject.org/en/latest/zeligei-eidynamic.html"],
+      "vignette.url": ["http://docs.zeligproject.org/articles/zeligei_eidynamic.html"],
       "wrapper": ["eidynamic"],
       "tree": ["Zelig-eidynamic", "Zelig-ei"]
     },
@@ -35,7 +35,7 @@
       "explanatory": {
         "modelingType": ["continuous", "discrete", "nominal", "ordinal", "binary"]
       },
-      "vignette.url": ["http://docs.zeligproject.org/en/latest/zeligei-eihier.html"],
+      "vignette.url": ["http://docs.zeligproject.org/articles/zeligei_eihier.html"],
       "wrapper": ["eihier"],
       "tree": ["Zelig-eihier", "Zelig-ei"]
     },
@@ -48,7 +48,7 @@
       "explanatory": {
         "modelingType": ["continuous", "discrete", "nominal", "ordinal", "binary"]
       },
-      "vignette.url": ["http://docs.zeligproject.org/en/latest/zeligei-eiml.html"],
+      "vignette.url": ["http://docs.zeligproject.org/articles/zeligei_eiml.html"],
       "wrapper": ["eiml"],
       "tree": ["Zelig-eiml", "Zelig-ei"]
     }

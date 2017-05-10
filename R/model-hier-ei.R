@@ -1,6 +1,6 @@
 #' Wakefield's Hierarchical Ecological Inference Model
 #'
-#' Vignette: \url{http://docs.zeligproject.org/en/latest/zeligei-eihier.html}
+#' Vignette: \url{http://docs.zeligproject.org/articles/zeligei_eihier.html}
 #' @import methods
 #' @export Zelig-eihier
 #' @exportClass Zelig-eihier
@@ -19,7 +19,7 @@ zeihier$methods(
     .self$fn <- quote(MCMCpack::MCMChierEI)
     .self$packageauthors <- "Andrew D. Martin, Kevin M. Quinn, Jong Hee Park"
     .self$wrapper <- "eihier"
-    .self$vignette.url <- "http://docs.zeligproject.org/en/latest/zeligei-eihier.html"
+    .self$vignette.url <- "http://docs.zeligproject.org/articles/zeligei_eihier.html"
     ref1<-bibentry(
             bibtype="Article",
             title = "Ecological Inference for 2 x 2 Tables.",

@@ -1,6 +1,6 @@
 #' Ecological Inference Model by Maximum Likelihood
 #'
-#' Vignette: \url{http://docs.zeligproject.org/en/latest/zeligei-eiml.html}
+#' Vignette: \url{http://docs.zeligproject.org/articles/zeligei_eiml.html}
 #' @import methods
 #' @export Zelig-eiml
 #' @exportClass Zelig-eiml
@@ -18,7 +18,7 @@ zeiml$methods(
     .self$fn <- quote(ei::ei)
     .self$packageauthors <- "Gary King, Molly Roberts"
     .self$wrapper <- "eiml"
-    .self$vignette.url <- "http://docs.zeligproject.org/en/latest/zeligei-eiml.html"
+    .self$vignette.url <- "http://docs.zeligproject.org/articles/zeligei_eiml.html"
     ref1<-bibentry(
             bibtype="Book",
             title = "A Solution to the Ecological Inference Problem: Reconstructing Individual Behavior from Aggregate Data",

@@ -1,6 +1,6 @@
 #' Quinn's Dynamic Ecological Inference Model
 #'
-#' Vignette: \url{http://docs.zeligproject.org/en/latest/zeligei-eidynamic.html}
+#' Vignette: \url{http://docs.zeligproject.org/articles/zeligei_eidynamic.html}
 #' @import methods
 #' @export Zelig-eidynamic
 #' @exportClass Zelig-eidynamic
@@ -19,7 +19,7 @@ zeidynamic$methods(
     .self$fn <- quote(MCMCpack::MCMCdynamicEI)
     .self$packageauthors <- "Andrew D. Martin, Kevin M. Quinn, Jong Hee Park"
     .self$wrapper <- "eidynamic"
-    .self$vignette.url <- "http://docs.zeligproject.org/en/latest/zeligei-eidynamic.html"
+    .self$vignette.url <- "http://docs.zeligproject.org/articles/zeligei_eidynamic.html"
     ref1<-bibentry(
             bibtype="InCollection",
             title = "Ecological Inference in the Presence of Temporal Dependence.",

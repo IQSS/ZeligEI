@@ -4,6 +4,9 @@ importFrom("MASS", "mvrnorm")
 
 importFrom("stats", "runif", "as.formula")
 
+importFrom("methods", "setRefClass")
+importFrom("methods", "new")
+
 exportPattern("^[[:alpha:]]+")
 
 exportClasses(

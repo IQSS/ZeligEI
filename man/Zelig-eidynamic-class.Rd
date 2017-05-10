@@ -8,4 +8,9 @@
 \description{
 Vignette: \url{http://docs.zeligproject.org/en/latest/zeligei-eidynamic.html}
 }
+\section{Methods}{
+
+\describe{
+\item{\code{getcoef()}}{Get estimated model coefficients}
+}}
 

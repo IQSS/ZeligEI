@@ -36,23 +36,24 @@ zeiml$methods(
   zelig = function(formula, data, N = NULL, ..., weights = NULL, by = NULL, bootstrap = FALSE, na.action="na.omit") {
     na.action <- checkZeligEIna.action(na.action)
 
-    if(is.null(N)){
-      stop("The argument N needs to be set to the name of the variable giving the total for each unit, or a vector of counts.")
-    }
+    #if(is.null(N)){
+    #  stop("The argument N needs to be set to the name of the variable giving the total for each unit, or a vector of counts.")
+    #}
+
+    cnvt <- convertEIformula2(formula=formula, data=data, N=N, na.action=na.action)
+    localformula <- cnvt$formula
+    localdata <- cnvt$data
 
     .self$zelig.call <- match.call(expand.dots = TRUE)
 
     .self$model.call <- match.call(expand.dots = TRUE)
+    .self$model.call$formula <- localformula
     .self$model.call$N <- NULL
-    if(is.numeric(N)){
-      data$ZeligN <- N
-      .self$model.call$total <- "ZeligN"
-    }else{
-      .self$model.call$total <- N
-    }
     .self$model.call$na.action <- NULL
+    .self$model.call$total <- cnvt$totalName
 
-    callSuper(formula = formula, data = data, N=N, ..., weights = weights, by = by, bootstrap = bootstrap)
+    # Check if N needs to be replaced in this model, or everything can rely on .self$model.call$total
+    callSuper(formula = localformula, data = localdata, N=N, ..., weights = weights, by = by, bootstrap = bootstrap)
   }
 )
 

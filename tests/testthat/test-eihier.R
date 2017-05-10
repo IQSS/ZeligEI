@@ -35,23 +35,20 @@ mydata <- data.frame(bb,bw,z11,z21,x,notx,x.frac,notx.frac,y,noty,y.frac,noty.fr
 
 # Different possible formula representations:
 
-z.out <- zeiml$new()
+z.out <- zeihier$new()
 z.out$zelig(y.frac~x.frac, N=total, data=mydata)
-expect_that(length(z.out$getcoef()[[1]]), equals(25))
-expect_that(round(z.out$getcoef()[[1]]$phi), equals(c(0,0,-2,-2,0,0,0)))
+expect_that(length(z.out$getcoef()), equals(5200000))
 
-z2.out <- zeiml$new()
+z2.out <- zeihier$new()
 z2.out$zelig(y.frac~x.frac, N="total", data=mydata)
-expect_that(length(z2.out$getcoef()[[1]]), equals(25))
-expect_that(round(z2.out$getcoef()[[1]]$phi), equals(c(0,0,-2,-2,0,0,0)))
+expect_that(length(z2.out$getcoef()), equals(5200000))
 
-z3.out <- zeiml$new()
+z3.out <- zeihier$new()
 z3.out$zelig( cbind(y.frac,noty.frac)~cbind(x.frac,notx.frac), N="total", data=mydata)
-expect_that(length(z3.out$getcoef()[[1]]), equals(25))
-expect_that(round(z3.out$getcoef()[[1]]$phi), equals(c(0,0,-2,-2,0,0,0)))
+expect_that(length(z3.out$getcoef()), equals(5200000))
 
-z4.out <- zeiml$new()
+z4.out <- zeihier$new()
 z4.out$zelig(y~x, N="total", data=mydata)
-expect_that(length(z4.out$getcoef()[[1]]), equals(25))
-expect_that(round(z4.out$getcoef()[[1]]$phi), equals(c(0,0,-2,-2,0,0,0)))
+expect_that(length(z4.out$getcoef()), equals(5200000))
+
 

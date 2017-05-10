@@ -43,9 +43,13 @@ zeihier$methods(
     if(!is.null(weights)){
       stop("Error: Weights are not implemented for the Wakefield Hierarchical EI model.  Try the eiml model if weights are required.")
     }
+    if(!is.null(by)){
+      stop("Error: The `by' argument is not implemented for the Wakefield Hierarchical EI model.  Try the eiml model if this is required,
+        or subset the data and run multiple models.")
+    }
 
     cnvt <- convertEIformula(formula=formula, N=N, data=data, na.action=na.action)
-
+    
     .self$zelig.call <- match.call(expand.dots = TRUE)
     .self$model.call <- match.call(expand.dots = TRUE)
 
@@ -59,7 +63,8 @@ zeihier$methods(
     .self$model.call$data <- NULL
     .self$model.call$na.action <- NULL
 
-    callSuper(formula = formula, data = data, ..., weights = NULL, by = by, bootstrap = FALSE)
+    # Note, formula and data pass through the Zelig internals, but are ignored by the wrapped model
+    callSuper(formula = formula, data = data, ..., weights = NULL, by = NULL, bootstrap = FALSE)
   }
 )
 

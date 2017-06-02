@@ -154,8 +154,8 @@ convertEIformula2 = function(formula, data, N, na.action, rxc=FALSE){
   if(any(flag.missing)){
     if (na.action=="na.omit"){
       warnings("There are observations in the EI model with missing values.  These observations have been removed.")
-      Nvalues<-Nvalues[!flag.missing]
-      newdata <- newdata[!flag.missing]
+      Nvalues <- Nvalues[!flag.missing]
+      newdata <- newdata[!flag.missing,]
       rtotal <- rtotal[!flag.missing]
       ctotal <- ctotal[!flag.missing]
     } else {

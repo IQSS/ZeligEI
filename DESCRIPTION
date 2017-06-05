@@ -10,8 +10,8 @@ Description: Add-on package for Zelig 5. Enables the use of a variety of
     ecological inference models.
 URL: https://cran.r-project.org/package=ZeligEI
 BugReports: https://github.com/IQSS/ZeligEI/issues
-Version: 0.1-1
-Date: 2017-05-04
+Version: 0.1-2
+Date: 2017-06-05
 Depends:
     eiPack
 Imports:
